@@ -7,6 +7,8 @@ import "../assets/scss/main.scss";
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
+import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
+import UserProfile from "../containers/profiile/UserProfile";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -19,6 +21,7 @@ const App = (props) => {
         setCurrentUser(null);
       });
   }, []);
+
   return (
     <Router>
       <TopBar user={currentUser} />
@@ -28,6 +31,7 @@ const App = (props) => {
         </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
+        <AuthenticatedRoute exact path="/profile" component={UserProfile} user={currentUser} />
       </Switch>
     </Router>
   );
