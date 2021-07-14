@@ -5,25 +5,21 @@ import UserProfile from "./profile/UserProfile";
 
 const UserProfileContainer = () => {
   const [error, setError] = useState({})
-  const [user, setUser] = useState({})
-  const [rolls, setRolls] = useState([])
-  const [setups, setSetups] = useState([])
+  const [user, setUser] = useState({ user: {}, rolls: [], setups: [] })
 
   useEffect(() => {
     getCurrentUser()
     .then(body => {
       setUser(body)
-      setRolls(body.rolls)
-      setSetups(body.setups)
     })
     .catch(error => {
       setError(error)
     })
   }, [])
-  
+
   return(
     <div>
-      <UserProfile user={user} rolls={rolls} setups={setups} />
+      <UserProfile user={user} rolls={user.rolls} setups={user.setups} />
     </div>
   )
 };

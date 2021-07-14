@@ -7,8 +7,18 @@ const UserProfile = (props) => {
 
   return(
     <div>
-      <Rolls rolls={props.rolls} />
-      <SetUps setups={props.setups} />
+      <div>
+        <h1>
+          ROLLS
+        </h1>
+        <Rolls rolls={props.rolls} />
+      </div>
+      <div>
+        <h1>
+          SET UPS
+        </h1>
+        <SetUps setups={props.setups} />
+      </div>
     </div>
   )
 };
