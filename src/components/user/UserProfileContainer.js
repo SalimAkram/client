@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react"
 
 import getCurrentUser from "../../services/getCurrentUser";
+import UserProfile from "./profile/UserProfile";
 
-import RollTile from "../../components/rolls/RollTile";
-
-const UserProfile = () => {
+const UserProfileContainer = () => {
   const [error, setError] = useState({})
   const [user, setUser] = useState({})
   const [rolls, setRolls] = useState([])
-  const [setUps, setSetUps] = useState([])
+  const [setups, setSetups] = useState([])
 
   useEffect(() => {
     getCurrentUser()
     .then(body => {
       setUser(body)
       setRolls(body.rolls)
-      setSetUps(body.setups)
+      setSetups(body.setups)
     })
     .catch(error => {
       setError(error)
@@ -24,10 +23,9 @@ const UserProfile = () => {
   
   return(
     <div>
-      <h4>{user.email}</h4>
-      <RollTile rolls={rolls}/>
+      <UserProfile user={user} rolls={rolls} setups={setups} />
     </div>
   )
 };
 
-export default UserProfile
+export default UserProfileContainer

@@ -7,8 +7,10 @@ import "../assets/scss/main.scss";
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
-import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
-import UserProfile from "../containers/profiile/UserProfile";
+import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
+import UserProfileContainer from "./user/UserProfileContainer";
+import SetUpForm from "../components/forms/SetUpForm";
+import RollForm from "./forms/RollForm";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -31,7 +33,9 @@ const App = (props) => {
         </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <AuthenticatedRoute exact path="/profile" component={UserProfile} user={currentUser} />
+        <AuthenticatedRoute exact path="/profile" component={UserProfileContainer} user={currentUser} />
+        <AuthenticatedRoute exact path="/setup/new" component={SetUpForm} user={currentUser} />
+        <AuthenticatedRoute exact path="/roll/new" component={RollForm} user={currentUser} />
       </Switch>
     </Router>
   );
