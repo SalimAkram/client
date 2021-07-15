@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
+import { Redirect } from 'react-router';
 
 import FormError from '../layout/FormError';
+
 import addRoll from "../../services/addRoll"
-import { Redirect } from 'react-router';
+import getDropdownData from '../../services/getDropdownData';
 
 const RollForm = () => {
   const [rollPayLoad, setRollPayload] = useState({
@@ -15,8 +17,44 @@ const RollForm = () => {
     loadDate: "",
     unloadDate: "",
   });
+  const [filmsElemenetData, setFilmsElementData] = useState({ films: [] })
+  const [cameraSetupsElementData, setCameraSetupsElementData] = useState([])
   const [shouldRedirect, setShouldRedirect] =  useState(false)
   const [errors, setErrors] = useState({})
+  const [error, setError] = useState({})
+
+  useEffect(() => {
+    getDropdownData()
+    .then(body => {
+      setCameraSetupsElementData(body.cameraSetups)
+      setFilmsElementData(body.films)
+    })
+    .catch(error => {
+      setError(error)
+    })
+  }, [])
+
+  let filmsArray;
+  if (filmsElemenetData.films) {
+    filmsArray = filmsElemenetData.films.map((film => {
+      return(
+        <option key={film.id} value={film.filmName}>
+          {film.brand} {film.filmName}
+        </option>
+      )
+    }))
+  }
+
+  let cameraSetupsArray;
+  if (cameraSetupsElementData) {
+    cameraSetupsArray = cameraSetupsElementData.map((cameraSetup => {
+      return (
+        <option key={cameraSetup.id} value={`${cameraSetup.cameraBrand} ${cameraSetup.cameraModel}`}>
+          {cameraSetup.cameraBrand} {cameraSetup.cameraModel}
+        </option>
+      );
+    }))
+  }
 
   const handleInputChange = (event) => {
     event.preventDefault()
@@ -28,7 +66,6 @@ const RollForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    debugger
     validateInput(rollPayLoad)
     if(Object.keys(errors).length === 0) {
       addRoll(rollPayLoad)
@@ -77,40 +114,24 @@ const RollForm = () => {
             </label>
           </div>
           <div>
-            <label>
-              Film
-              <input
-                // dynamically display the films that are in the database in a drop down menu. create a function that fetches all the films in the database
-                name="film"
-                id="film"
-                type="text"
-                onChange={handleInputChange}
-                value={setRollPayload.film}
-              />
+            <label>Film
+              <select value={setRollPayload.film} onChange={handleInputChange} name="film" id="film">
+                <option value=""></option>
+                {filmsArray}
+              </select>
             </label>
           </div>
           <div>
-            <label>
-              Camera Setup
-              <input
-                // dynamically display the setups that belong to the current user that are in the database in a drop down menu. create a function that fetches all the user setups from the database
-                name="cameraSetup"
-                id="cameraSetup"
-                type="text"
-                onChange={handleInputChange}
-                value={setRollPayload.cameraSetup}
-              />
+            <label>Camera Setup
+              <select value={setRollPayload.cameraSetup} onChange={handleInputChange} name="cameraSetup" id="cameraSetup">
+                <option value=""></option>
+                {cameraSetupsArray}
+              </select>
             </label>
           </div>
           <div>
-            <label>
-              Camera Iso
-              <select
-                value={setRollPayload.cameraIso}
-                onChange={handleInputChange}
-                name="cameraIso"
-                id="cameraIso"
-              >
+            <label>Camera Iso
+              <select value={setRollPayload.cameraIso} onChange={handleInputChange} name="cameraIso" id="cameraIso">
                 <option value=""></option>
                 <option value="100">100</option>
                 <option value="200">200</option>
@@ -122,8 +143,7 @@ const RollForm = () => {
             </label>
           </div>
           <div>
-            <label>
-              Weather
+            <label>Weather
               <input
                 name="weather"
                 id="weather"
@@ -134,8 +154,7 @@ const RollForm = () => {
             </label>
           </div>
           <div>
-            <label>
-              Start Date
+            <label>Start Date
               <input
                 name="loadDate"
                 id="loadDate"
@@ -146,8 +165,7 @@ const RollForm = () => {
             </label>
           </div>
           <div>
-            <label>
-              End Date
+            <label>End Date
               <input
                 name="unloadDate"
                 id="unloadDate"
@@ -158,8 +176,7 @@ const RollForm = () => {
             </label>
           </div>
           <div>
-            <label>
-              Notes
+            <label>Notes
               <textarea
                 name="notes"
                 id="notes"
