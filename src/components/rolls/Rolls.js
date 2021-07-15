@@ -9,7 +9,8 @@ const Rolls = (props) => {
     return(
       <RollTile
         key={roll.id}
-        name={roll.name}
+        id={roll.id}
+        rollName={roll.rollName}
       />
     )
   }))

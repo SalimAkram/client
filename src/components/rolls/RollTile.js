@@ -1,9 +1,12 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
-const RollTile = (props) => {
+const RollTile = (props) => {  
   return (
     <div>
-      {props.name}
+      <Link to={`rolls/${props.id}`}>
+        {props.rollName}
+      </Link>
     </div>
   )
 };

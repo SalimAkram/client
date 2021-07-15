@@ -1,18 +1,12 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
 const SetUpTile = (props) => {
   return(
     <div>
-      <p>
+      <Link to={`/setups/${props.id}`}>
         {props.cameraBrand}  {props.cameraModel}
-      </p>
-      <p>
-        {props.lenseAperature} | {props.lenseBrand} | {props.lenseModel} | {props.lenseType} 
-      </p>
-      <p>
-        {props.focalLength} | {props.focusType}
-      </p>
-        {props.notes}
+      </Link>
     </div>
   )
 };

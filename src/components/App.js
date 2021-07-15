@@ -11,6 +11,8 @@ import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
 import UserProfileContainer from "./user/UserProfileContainer";
 import SetUpForm from "../components/forms/SetUpForm";
 import RollForm from "./forms/RollForm";
+import SetUpShow from "./setups/SetUpShow";
+import RollShow from "./rolls/RollShow";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -34,8 +36,10 @@ const App = (props) => {
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <AuthenticatedRoute exact path="/profile" component={UserProfileContainer} user={currentUser} />
-        <AuthenticatedRoute exact path="/setup/new" component={SetUpForm} user={currentUser} />
-        <AuthenticatedRoute exact path="/roll/new" component={RollForm} user={currentUser} />
+        <AuthenticatedRoute exact path="/setups/new" component={SetUpForm} user={currentUser} />
+        <AuthenticatedRoute exact path="/rolls/new" component={RollForm} user={currentUser} />
+        <AuthenticatedRoute exact path="/setups/:id" component={SetUpShow} user={currentUser} />
+        <AuthenticatedRoute exact path="/rolls/:id" component={RollShow} user={currentUser} />
       </Switch>
     </Router>
   );

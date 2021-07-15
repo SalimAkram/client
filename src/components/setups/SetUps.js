@@ -9,6 +9,7 @@ const SetUps = (props) => {
     return(
       <SetUpTile 
         key={setup.id}
+        id={setup.id}
         cameraBrand={setup.cameraBrand}
         cameraModel={setup.cameraModel}
         focalLength={setup.focalLength}
