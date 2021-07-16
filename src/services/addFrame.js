@@ -1,14 +1,15 @@
-const addRoll = async (rollPayLoad) => {
+const addFrame = async (framePayload, id) => {
   try {
-    const response = await fetch("/api/v1/rolls", {
+    const response = await fetch(`/api/v1/rolls/${id}/frames/new`, {
       method: "POST",
       headers: new Headers({
         "Content-Type": "application/json"
       }),
-      body: JSON.stringify(rollPayLoad)
+      body: JSON.stringify(framePayload)
+      
     })
-    
-    if(!response.ok) {
+
+    if (!response.ok) {
       if (response.status === 422) {
         const body = await response.json()
         return { errors: body.errors }
@@ -21,8 +22,8 @@ const addRoll = async (rollPayLoad) => {
       return response
     }
   } catch (error) {
-    console.error(`Error in fetch: ${error.message}`)
+    console.error(`Error in fetch: ${error.message}`);
   }
 }
 
-export default addRoll
+export default addFrame;

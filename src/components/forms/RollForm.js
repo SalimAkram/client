@@ -1,9 +1,9 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 
 import FormError from '../layout/FormError';
 
-import addRoll from "../../services/addRoll"
+import addRoll from "../../services/addRoll";
 import getDropdownData from '../../services/getDropdownData';
 
 const RollForm = () => {

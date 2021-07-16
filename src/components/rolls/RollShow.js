@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Fragment }  from "react"
-import { useParams } from "react-router-dom"
+import React, { useState, useEffect }  from "react"
+import { useParams, Link } from "react-router-dom"
 
 import getRoll from "../../services/getRoll"
 
@@ -25,16 +25,17 @@ const RollShow = (props) => {
   let framesArray;
   if(roll.frames) {
     framesArray = roll.frames.map((frame => {
-      return(
-        <Fragment>
+      return (
+        <div key={frame.id}>
           <li>aperature: f/{frame.aperature}</li>
           <li>shutterspeed: 1/{frame.shutterSpeed}</li>
           <li>exposure #{frame.frameNumber}</li>
           <li>notes: {frame.notes}</li>
           <li></li>
-          <li>created at: {frame.createdAt}</li><br/>
-        </Fragment>
-      )
+          <li>created at: {frame.createdAt}</li>
+          <Link>delete this frame</Link><br/><br/>
+        </div>
+      );
     }))
   }
 
@@ -42,15 +43,15 @@ const RollShow = (props) => {
   if(roll.locations) {
     locationsArray = roll.locations.map((location => {
       return(
-        <Fragment>
+        <div key={location.id}>
           <li>longitude: {location.longitude}</li>
           <li>latitude: {location.latitude}</li><br/>
-        </Fragment>
+        </div>
       )
     }))
   }
 
-  return(
+  return (
     <div>
       <div>
         <li>{roll.rollName}</li>
@@ -59,7 +60,11 @@ const RollShow = (props) => {
         <li>{roll.film}</li>
       </div>
       <div>
-        <h3>Frames</h3>
+        <div>
+          <h3>
+            Frames <Link to={`/rolls/${id}/frames/new`}>add a new frame</Link>
+          </h3>
+        </div>
         {framesArray}
       </div>
       <div>
@@ -67,7 +72,7 @@ const RollShow = (props) => {
         {locationsArray}
       </div>
     </div>
-  )
+  );
 }
 
 export default RollShow;

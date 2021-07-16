@@ -9,8 +9,9 @@ import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
 import UserProfileContainer from "./user/UserProfileContainer";
-import SetUpForm from "../components/forms/SetUpForm";
+import SetUpForm from "./forms/SetUpForm";
 import RollForm from "./forms/RollForm";
+import FrameForm from "./forms/FrameForm";
 import SetUpShow from "./setups/SetUpShow";
 import RollShow from "./rolls/RollShow";
 
@@ -40,6 +41,7 @@ const App = (props) => {
         <AuthenticatedRoute exact path="/rolls/new" component={RollForm} user={currentUser} />
         <AuthenticatedRoute exact path="/setups/:id" component={SetUpShow} user={currentUser} />
         <AuthenticatedRoute exact path="/rolls/:id" component={RollShow} user={currentUser} />
+        <AuthenticatedRoute exact path="/rolls/:id/frames/new" component={FrameForm} user={currentUser} />
       </Switch>
     </Router>
   );
