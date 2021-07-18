@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, Redirect } from "react-router-dom"
 
-import getSetUp from "../../services/getSetUp";
+import getSetUp from "../services/getSetUp";
+import deleteSetUp from "../services/deleteSetUp";
 
 const SetUpShow = (props) => {
   console.log('rendering setup show page....')
   console.log(props)
   const [setUp, setSetUp] = useState({})
   const [error, setError] = useState({});
+  const [shouldRedirect, setShouldRedirect] = useState(false)
   const { id } = useParams()
   
   useEffect(() => {
@@ -20,6 +22,21 @@ const SetUpShow = (props) => {
     })
   }, [])
   
+  const deleteHandleClick = (id) => {
+    deleteSetUp(id)
+    .then(response => {
+      if (response.ok) {
+        setShouldRedirect(true)
+      }
+    })
+    .catch(error => {
+      setError(error)
+    })
+  }
+
+  if (shouldRedirect) {
+    return <Redirect to="/profile" />;
+  }
   console.log(setUp)
 
   return(
@@ -30,6 +47,7 @@ const SetUpShow = (props) => {
       <li>{setUp.lenseAperature} {setUp.lenseBrand}</li><br/>
       <p>notes</p>
       <li>{setUp.notes}</li>
+      <a onClick={()=> deleteHandleClick(id)}>delete this setup</a>
     </div>
   );
 }; 
