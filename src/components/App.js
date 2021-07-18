@@ -8,12 +8,12 @@ import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
-import UserProfileContainer from "./user/UserProfileContainer";
+import UserProfileContainer from "../containers/UserProfileContainer";
+import SetUpShow from "../containers/SetUpShow";
+import RollShow from "../containers/RollShow";
 import SetUpForm from "./forms/SetUpForm";
 import RollForm from "./forms/RollForm";
 import FrameForm from "./forms/FrameForm";
-import SetUpShow from "./setups/SetUpShow";
-import RollShow from "./rolls/RollShow";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);

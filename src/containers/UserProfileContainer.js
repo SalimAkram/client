@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 
-import getCurrentUser from "../../services/getCurrentUser";
-import UserProfile from "./profile/UserProfile";
+import getCurrentUser from "../services/getCurrentUser";
+import UserProfile from "../components/user/UserProfile";
 
 const UserProfileContainer = () => {
   const [error, setError] = useState({})

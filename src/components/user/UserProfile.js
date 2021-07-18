@@ -1,7 +1,7 @@
 import React from "react"
 
-import Rolls from "../../rolls/Rolls";
-import SetUps from "../../setups/SetUps"
+import Rolls from "../rolls/Rolls";
+import SetUps from "../setups/SetUps"
 
 const UserProfile = (props) => {
 
