@@ -17,11 +17,12 @@ const RollShow = () => {
   useEffect(() => {
     getRoll(id)
     .then(body => {
-      console.log('setting state')
-      setRoll(body.roll)
-    })
-    .catch(error => {
-      setError(error)
+      if (body.error) {
+       setShouldRedirect(true)
+      } else {
+        console.log('setting state for the roll coming from the database')
+        setRoll(body.roll)
+      }
     })
   }, [])
 

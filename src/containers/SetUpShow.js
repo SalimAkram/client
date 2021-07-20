@@ -15,10 +15,12 @@ const SetUpShow = (props) => {
   useEffect(() => {
     getSetUp(id)
     .then(body => {
-      setSetUp(body.setUp)
-    })
-    .catch(error => {
-      setError(error)
+      if (body.error) {
+        setShouldRedirect(true)
+      } else {
+        console.log("setting state for the setup coming from the database");
+        setSetUp(body.setUp)
+      }
     })
   }, [])
   
