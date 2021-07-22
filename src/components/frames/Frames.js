@@ -17,7 +17,7 @@ const Frames = (props) => {
             notes={frame.notes}
             createdAt={frame.createdAt}
           />
-          <a onClick={() => props.deleteFrame(props.rollId, frame.id)}>delete this frame</a>
+          <button className="button" onClick={() => props.deleteFrame(props.rollId, frame.id)}>delete this frame</button>
         </div>
       );
     }))

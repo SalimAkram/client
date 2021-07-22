@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useParams, Redirect } from "react-router-dom"
+import { useParams, Redirect, Link } from "react-router-dom"
 
 import getSetUp from "../services/getSetUp";
 import deleteSetUp from "../services/deleteSetUp";
@@ -43,13 +43,14 @@ const SetUpShow = (props) => {
 
   return(
     <div>
+      <Link className="button" to={`/setups/${id}/edit`} >edit setup</Link>
       <li>{setUp.cameraBrand} {setUp.cameraModel}</li>
       <li>{setUp.focalLength}</li>
       <li> {setUp.lenseType} {setUp.lenseModel}</li>
       <li>{setUp.lenseAperature} {setUp.lenseBrand}</li><br/>
       <p>notes</p>
       <li>{setUp.notes}</li>
-      <a onClick={()=> deleteHandleClick(id)}>delete this setup</a>
+      <li><button className="button" onClick={()=> deleteHandleClick(id)}>delete this setup</button></li>
     </div>
   );
 }; 

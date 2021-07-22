@@ -19,6 +19,7 @@ const getRoll = async (id) => {
       const error = new Error(errorMessage);
       throw error;
     }
+
     const body = await response.json();
     return body;
   } catch (error) {

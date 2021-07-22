@@ -51,10 +51,11 @@ const RollShow = () => {
         <li>{roll.cameraSetup}</li>
         <li>{roll.cameraIso}</li>
         <li>{roll.film}</li>
+        <h3><Link className="button" to={`/rolls/${id}/edit`} >edit roll</Link></h3>
       </div>
       <div>
         <h5>
-          Frames <Link to={`/rolls/${id}/frames/new`}>add a new frame</Link>
+          Frames <Link className="button" to={`/rolls/${id}/frames/new`}>add a new frame</Link>
         </h5>
         <Frames frames={roll.frames} rollId={id} deleteFrame={deleteFrameHandleClick} /><br/>
       </div>

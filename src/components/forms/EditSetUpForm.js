@@ -1,11 +1,13 @@
-import React, { useState }from "react"
+import React, { useState, useEffect } from "react";
+import { useParams, Redirect } from "react-router-dom";
+
+import getSetUp from "../../services/getSetUp";
+import editSetUp from "../../services/editSetUp"
 
 import FormError from "../layout/FormError";
-import addSetUp from "../../services/addSetUp";
-import { Redirect } from "react-router";
 
-const SetUpForm = (props) => {
-  const [setUpPayload, setSetUpPayload] = useState ({
+const EditSetUpForm = (props) => {
+  const [setUp, setSetUp] = useState({
     cameraBrand: "",
     cameraModel: "",
     lenseType: "",
@@ -14,26 +16,38 @@ const SetUpForm = (props) => {
     focalLength: "",
     lenseAperature: "",
     notes: "",
-    focusType: ""
-  })
+    focusType: "",
+  });
   const [shouldRedirect, setShouldRedirect] = useState(false)
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] =  useState({})
+  const [error, setError] =  useState({})
+  const { id } = useParams()
+ 
+  useEffect(() => {
+    getSetUp(id)
+    .then(body => {
+      setSetUp(body.setUp)
+    })
+    .catch(error => {
+      setError(error)
+    })
+  }, [])
 
   const handleInputChange = (event) => {
     event.preventDefault()
-    setSetUpPayload({
-      ...setUpPayload,
+    setSetUp({
+      ...setUp,
       [event.currentTarget.name]: event.currentTarget.value
     })
-  };  
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    validateInput(setUpPayload)
+    validateInput(setUp)
     if (Object.keys(errors).length === 0) {
-      addSetUp(setUpPayload)
+      editSetUp(setUp)
       .then(response => {
-        if(response.ok) {
+        if (response.ok) {
           setShouldRedirect(true)
         }
       })
@@ -41,7 +55,7 @@ const SetUpForm = (props) => {
         setError(error)
       })
     }
-  };
+  }
 
   const validateInput = (payload) => {
     setErrors({});
@@ -64,106 +78,120 @@ const SetUpForm = (props) => {
   };
 
   if (shouldRedirect) {
-    return <Redirect to="/profile" />;
+    return <Redirect to={`/setups/${id}`} />;
   }
-   
-  return(
+
+  return (
     <div>
       <div>
         <form onSubmit={handleSubmit}>
           <div>
-            <label>Camera Brand
-              <input 
+            <label>
+              Camera Brand
+              <input
                 name="cameraBrand"
                 id="cameraBrand"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.cameraBrand}
+                value={setUp.cameraBrand || ""}
               />
               <FormError error={errors.cameraBrand} />
             </label>
           </div>
           <div>
-            <label>Camera Model
-              <input 
+            <label>
+              Camera Model
+              <input
                 name="cameraModel"
                 id="cameraModel"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.cameraModel}
+                value={setUp.cameraModel || ""}
               />
               <FormError error={errors.cameraModel} />
             </label>
           </div>
           <div>
-            <label>Lense Type
-              <input 
+            <label>
+              Lense Type
+              <input
                 name="lenseType"
                 id="lenseType"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.lenseType}
+                value={setUp.lenseType || ""}
               />
             </label>
           </div>
           <div>
-            <label>Lense Brand
-              <input 
+            <label>
+              Lense Brand
+              <input
                 name="lenseBrand"
                 id="lenseBrand"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.lenseBrand}
+                value={setUp.lenseBrand || ""}
               />
             </label>
           </div>
           <div>
-            <label>Lense Model
-              <input 
+            <label>
+              Lense Model
+              <input
                 name="lenseModel"
                 id="lenseModel"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.lenseModel}
+                value={setUp.lenseModel || ""}
               />
             </label>
           </div>
           <div>
-            <label>Focal Length
-              <input 
+            <label>
+              Focal Length
+              <input
                 name="focalLength"
                 id="focalLength"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.focalLength}
+                value={setUp.focalLength || ""}
               />
             </label>
           </div>
           <div>
-            <label>Lense Aperature
-              <input 
+            <label>
+              Lense Aperature
+              <input
                 name="lenseAperature"
                 id="lenseAperature"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.lenseAperature}
+                value={setUp.lenseAperature || ""}
               />
             </label>
           </div>
           <div>
-            <label>notes
-              <textarea 
+            <label>
+              notes
+              <textarea
                 name="notes"
                 id="notes"
                 rows="10"
                 onChange={handleInputChange}
-                value={setSetUpPayload.notes}
+                value={setUp.notes || ""}
               />
             </label>
           </div>
           <div>
-            <label>Focus Type
-              <select value={setSetUpPayload.focusType} onChange={handleInputChange} name="focusType" id="focusType">
+            <label>
+              Focus Type
+              <select
+                value={setUp.focusType || ""}
+                onChange={handleInputChange}
+                name="focusType"
+                id="focusType"
+              >
                 <option value=""></option>
                 <option value="range finder">Range Finder</option>
                 <option value="view finder">View Finder</option>
@@ -174,7 +202,7 @@ const SetUpForm = (props) => {
         </form>
       </div>
     </div>
-  )
+  );
 };
-
-export default SetUpForm;
+  
+export default EditSetUpForm

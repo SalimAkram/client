@@ -14,6 +14,8 @@ import RollShow from "../containers/RollShow";
 import SetUpForm from "./forms/SetUpForm";
 import RollForm from "./forms/RollForm";
 import FrameForm from "./forms/FrameForm";
+import EditRollForm from "./forms/EditRollForm";
+import EditSetUpForm from "./forms/EditSetUpForm";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -41,6 +43,8 @@ const App = (props) => {
         <AuthenticatedRoute exact path="/rolls/new" component={RollForm} user={currentUser} />
         <AuthenticatedRoute exact path="/setups/:id" component={SetUpShow} user={currentUser} />
         <AuthenticatedRoute exact path="/rolls/:id" component={RollShow} user={currentUser} />
+        <AuthenticatedRoute exact path="/rolls/:id/edit" component={EditRollForm} user={currentUser} />
+        <AuthenticatedRoute exact path="/setups/:id/edit" component={EditSetUpForm} user={currentUser} />
         <AuthenticatedRoute exact path="/rolls/:id/frames/new" component={FrameForm} user={currentUser} />
       </Switch>
     </Router>

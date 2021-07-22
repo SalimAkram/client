@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router';
+import React, { useState, useEffect } from "react";
+import { useParams, Redirect } from "react-router-dom";
 
-import FormError from '../layout/FormError';
+import getDropdownData from "../../services/getDropdownData";
+import getRoll from "../../services/getRoll";
+import editRoll from "../../services/editRoll";
 
-import addRoll from "../../services/addRoll";
-import getDropdownData from '../../services/getDropdownData';
+import FormError from "../layout/FormError";
 
-const RollForm = () => {
-  const [rollPayLoad, setRollPayload] = useState({
+const EditRollForm = () => { 
+  const [roll, setRoll] = useState({
     rollName: "",
     film: "",
     cameraSetup: "",
@@ -17,17 +18,25 @@ const RollForm = () => {
     loadDate: "",
     unloadDate: "",
   });
-  const [filmsElemenetData, setFilmsElementData] = useState({ films: [] })
-  const [cameraSetupsElementData, setCameraSetupsElementData] = useState([])
-  const [shouldRedirect, setShouldRedirect] =  useState(false)
+  const [filmsElemenetData, setFilmsElementData] = useState({ films: [] });
+  const [cameraSetupsElementData, setCameraSetupsElementData] = useState([]);
+  const [shouldRedirect, setShouldRedirect] = useState(false)
   const [errors, setErrors] = useState({})
   const [error, setError] = useState({})
+  const { id } = useParams() 
 
   useEffect(() => {
+    getRoll(id)
+    .then(body => {
+      setRoll(body.roll)
+    })
+    .catch(error => {
+      setError(error)
+    })
     getDropdownData()
     .then(body => {
-      setCameraSetupsElementData(body.cameraSetups)
       setFilmsElementData(body.films)
+      setCameraSetupsElementData(body.cameraSetups)
     })
     .catch(error => {
       setError(error)
@@ -36,40 +45,28 @@ const RollForm = () => {
 
   const handleInputChange = (event) => {
     event.preventDefault()
-    setRollPayload({
-      ...rollPayLoad,
+    setRoll({
+      ...roll,
       [event.currentTarget.name]: event.currentTarget.value
     })
-  }
+  };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault()
-    validateInput(rollPayLoad)
-    if(Object.keys(errors).length === 0) {
-      addRoll(rollPayLoad)
+    validateInput(roll) 
+    if (Object.keys(errors).length === 0) {
+      editRoll(roll)
       .then(response => {
-        if(response.ok) {
-          response.json()
-          .then(() => {
-            setShouldRedirect(true)
-          })
+        console.log('handle submit', response)
+        if (response.ok) {
+          setShouldRedirect(true)
         }
       })
+      .catch(error => {
+        setError(error)
+      })
     }
-  }
-
-  const validateInput = (payload) => {
-    setErrors({});
-    const { rollName, film, cameraSetup, weather, notes, cameraIso, loadDate, unloadDate } = payload
-    let newErrors = {};
-    if(rollName.trim() === "") {
-      newErrors = {
-        ...newErrors,
-        rollName: "is required"
-      }
-    }
-    setErrors(newErrors)
-  }
+  };
 
   let filmsArray;
   if (filmsElemenetData.films) {
@@ -96,45 +93,78 @@ const RollForm = () => {
     });
   }
 
-  if (shouldRedirect) {
-    return <Redirect to="/profile" />
-  }
+   const validateInput = (payload) => {
+     setErrors({});
+     const { rollName, film, cameraSetup, weather, notes, cameraIso, loadDate, unloadDate } =
+       payload;
+     let newErrors = {};
+     if (rollName.trim() === "") {
+       newErrors = {
+         ...newErrors,
+         rollName: "is required",
+       };
+     }
+     setErrors(newErrors);
+   };
+
+   if (shouldRedirect) {
+     return <Redirect to={`/rolls/${id}`}/>
+   }
 
   return (
     <div>
       <div>
         <form onSubmit={handleSubmit}>
           <div>
-            <label>Name
+            <label>
+              Name
               <input
                 name="rollName"
                 id="rollName"
                 type="text"
                 onChange={handleInputChange}
-                value={setRollPayload.rollName}
+                value={roll.rollName || ""}
               />
               <FormError error={errors.rollName} />
             </label>
           </div>
           <div>
-            <label>Film
-              <select value={setRollPayload.film} onChange={handleInputChange} name="film" id="film">
+            <label>
+              Film
+              <select
+                value={roll.film || ""}
+                onChange={handleInputChange}
+                name="film"
+                id="film"
+              >
                 <option value=""></option>
                 {filmsArray}
               </select>
             </label>
           </div>
           <div>
-            <label>Camera Setup
-              <select value={setRollPayload.cameraSetup} onChange={handleInputChange} name="cameraSetup" id="cameraSetup">
+            <label>
+              Camera Setup
+              <select
+                value={roll.cameraSetup || ""}
+                onChange={handleInputChange}
+                name="cameraSetup"
+                id="cameraSetup"
+              >
                 <option value=""></option>
                 {cameraSetupsArray}
               </select>
             </label>
           </div>
           <div>
-            <label>Camera Iso
-              <select value={setRollPayload.cameraIso} onChange={handleInputChange} name="cameraIso" id="cameraIso">
+            <label>
+              Camera Iso
+              <select
+                value={roll.cameraIso || ""}
+                onChange={handleInputChange}
+                name="cameraIso"
+                id="cameraIso"
+              >
                 <option value=""></option>
                 <option value="100">100</option>
                 <option value="200">200</option>
@@ -146,46 +176,50 @@ const RollForm = () => {
             </label>
           </div>
           <div>
-            <label>Weather
+            <label>
+              Weather
               <input
                 name="weather"
                 id="weather"
                 type="text"
                 onChange={handleInputChange}
-                value={setRollPayload.weather}
+                value={roll.weather || ""}
               />
             </label>
           </div>
           <div>
-            <label>Start Date
+            <label>
+              Start Date
               <input
                 name="loadDate"
                 id="loadDate"
                 type="text"
                 onChange={handleInputChange}
-                value={setRollPayload.loadDate}
+                value={roll.loadDate || ""}
               />
             </label>
           </div>
           <div>
-            <label>End Date
+            <label>
+              End Date
               <input
                 name="unloadDate"
                 id="unloadDate"
                 type="text"
                 onChange={handleInputChange}
-                value={setRollPayload.unloadDate}
+                value={roll.unloadDate || ""}
               />
             </label>
           </div>
           <div>
-            <label>Notes
+            <label>
+              Notes
               <textarea
                 name="notes"
                 id="notes"
                 rows="10"
                 onChange={handleInputChange}
-                value={setRollPayload.notes}
+                value={roll.notes || ""}
               />
             </label>
           </div>
@@ -195,5 +229,5 @@ const RollForm = () => {
     </div>
   );
 };
-
-export default RollForm;
+  
+export default EditRollForm
