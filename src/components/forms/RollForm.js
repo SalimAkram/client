@@ -5,9 +5,10 @@ import FormError from '../layout/FormError';
 
 import addRoll from "../../services/addRoll";
 import getDropdownData from '../../services/getDropdownData';
+import clearForm from '../../services/clearForm';
 
 const RollForm = () => {
-  const [rollPayLoad, setRollPayload] = useState({
+  const [rollPayload, setRollPayload] = useState({
     rollName: "",
     film: "",
     cameraSetup: "",
@@ -15,7 +16,7 @@ const RollForm = () => {
     notes: "",
     cameraIso: "",
     loadDate: "",
-    unloadDate: "",
+    unloadDate: ""
   });
   const [filmsElemenetData, setFilmsElementData] = useState({ films: [] })
   const [cameraSetupsElementData, setCameraSetupsElementData] = useState([])
@@ -37,7 +38,7 @@ const RollForm = () => {
   const handleInputChange = (event) => {
     event.preventDefault()
     setRollPayload({
-      ...rollPayLoad,
+      ...rollPayload,
       [event.currentTarget.name]: event.currentTarget.value
     })
   }
@@ -62,13 +63,19 @@ const RollForm = () => {
     setErrors({});
     const { rollName, film, cameraSetup, weather, notes, cameraIso, loadDate, unloadDate } = payload
     let newErrors = {};
-    if(rollName.trim() === "") {
+    if (rollName.trim() === "") {
       newErrors = {
         ...newErrors,
         rollName: "is required"
       }
     }
     setErrors(newErrors)
+  }
+
+  const clear = (event) => {
+    event.preventDefault()
+    setRollPayload(clearForm(rollPayload));
+    setErrors({})
   }
 
   let filmsArray;
@@ -111,14 +118,14 @@ const RollForm = () => {
                 id="rollName"
                 type="text"
                 onChange={handleInputChange}
-                value={setRollPayload.rollName}
+                value={rollPayload.rollName}
               />
               <FormError error={errors.rollName} />
             </label>
           </div>
           <div>
             <label>Film
-              <select value={setRollPayload.film} onChange={handleInputChange} name="film" id="film">
+              <select value={rollPayload.film} onChange={handleInputChange} name="film" id="film">
                 <option value=""></option>
                 {filmsArray}
               </select>
@@ -126,7 +133,7 @@ const RollForm = () => {
           </div>
           <div>
             <label>Camera Setup
-              <select value={setRollPayload.cameraSetup} onChange={handleInputChange} name="cameraSetup" id="cameraSetup">
+              <select value={rollPayload.cameraSetup} onChange={handleInputChange} name="cameraSetup" id="cameraSetup">
                 <option value=""></option>
                 {cameraSetupsArray}
               </select>
@@ -134,7 +141,7 @@ const RollForm = () => {
           </div>
           <div>
             <label>Camera Iso
-              <select value={setRollPayload.cameraIso} onChange={handleInputChange} name="cameraIso" id="cameraIso">
+              <select value={rollPayload.cameraIso} onChange={handleInputChange} name="cameraIso" id="cameraIso">
                 <option value=""></option>
                 <option value="100">100</option>
                 <option value="200">200</option>
@@ -152,7 +159,7 @@ const RollForm = () => {
                 id="weather"
                 type="text"
                 onChange={handleInputChange}
-                value={setRollPayload.weather}
+                value={rollPayload.weather}
               />
             </label>
           </div>
@@ -163,7 +170,7 @@ const RollForm = () => {
                 id="loadDate"
                 type="text"
                 onChange={handleInputChange}
-                value={setRollPayload.loadDate}
+                value={rollPayload.loadDate}
               />
             </label>
           </div>
@@ -174,7 +181,7 @@ const RollForm = () => {
                 id="unloadDate"
                 type="text"
                 onChange={handleInputChange}
-                value={setRollPayload.unloadDate}
+                value={rollPayload.unloadDate}
               />
             </label>
           </div>
@@ -185,10 +192,11 @@ const RollForm = () => {
                 id="notes"
                 rows="10"
                 onChange={handleInputChange}
-                value={setRollPayload.notes}
+                value={rollPayload.notes}
               />
             </label>
           </div>
+          <button onClick={clear} className="button">clear</button>
           <input type="submit" value="submit" className="button" />
         </form>
       </div>

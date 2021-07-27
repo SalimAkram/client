@@ -3,6 +3,7 @@ import React, { useState }from "react"
 import FormError from "../layout/FormError";
 import addSetUp from "../../services/addSetUp";
 import { Redirect } from "react-router";
+import clearForm from "../../services/clearForm";
 
 const SetUpForm = (props) => {
   const [setUpPayload, setSetUpPayload] = useState ({
@@ -63,6 +64,12 @@ const SetUpForm = (props) => {
     setErrors(newErrors);
   };
 
+  const clear = (event) => {
+    event.preventDefault()
+    setSetUpPayload(clearForm(setUpPayload));
+    setErrors({})
+  }
+
   if (shouldRedirect) {
     return <Redirect to="/profile" />;
   }
@@ -78,7 +85,7 @@ const SetUpForm = (props) => {
                 id="cameraBrand"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.cameraBrand}
+                value={setUpPayload.cameraBrand}
               />
               <FormError error={errors.cameraBrand} />
             </label>
@@ -90,7 +97,7 @@ const SetUpForm = (props) => {
                 id="cameraModel"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.cameraModel}
+                value={setUpPayload.cameraModel}
               />
               <FormError error={errors.cameraModel} />
             </label>
@@ -102,7 +109,7 @@ const SetUpForm = (props) => {
                 id="lenseType"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.lenseType}
+                value={setUpPayload.lenseType}
               />
             </label>
           </div>
@@ -113,7 +120,7 @@ const SetUpForm = (props) => {
                 id="lenseBrand"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.lenseBrand}
+                value={setUpPayload.lenseBrand}
               />
             </label>
           </div>
@@ -124,7 +131,7 @@ const SetUpForm = (props) => {
                 id="lenseModel"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.lenseModel}
+                value={setUpPayload.lenseModel}
               />
             </label>
           </div>
@@ -135,7 +142,7 @@ const SetUpForm = (props) => {
                 id="focalLength"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.focalLength}
+                value={setUpPayload.focalLength}
               />
             </label>
           </div>
@@ -146,7 +153,7 @@ const SetUpForm = (props) => {
                 id="lenseAperature"
                 type="text"
                 onChange={handleInputChange}
-                value={setSetUpPayload.lenseAperature}
+                value={setUpPayload.lenseAperature}
               />
             </label>
           </div>
@@ -157,19 +164,20 @@ const SetUpForm = (props) => {
                 id="notes"
                 rows="10"
                 onChange={handleInputChange}
-                value={setSetUpPayload.notes}
+                value={setUpPayload.notes}
               />
             </label>
           </div>
           <div>
             <label>Focus Type
-              <select value={setSetUpPayload.focusType} onChange={handleInputChange} name="focusType" id="focusType">
+              <select value={setUpPayload.focusType} onChange={handleInputChange} name="focusType" id="focusType">
                 <option value=""></option>
                 <option value="range finder">Range Finder</option>
                 <option value="view finder">View Finder</option>
               </select>
             </label>
           </div>
+          <button onClick={clear} className="button">clear</button>
           <input type="submit" value="submit" className="button" />
         </form>
       </div>

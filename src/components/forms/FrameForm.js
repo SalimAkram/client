@@ -4,6 +4,7 @@ import { useParams, Redirect } from "react-router-dom";
 import FormError from "../layout/FormError";
 
 import addFrame from "../../services/addFrame";
+import clearForm from "../../services/clearForm";
 
 const FrameForm = () => {
   const [framePayload, setFramePayload] = useState({
@@ -26,7 +27,7 @@ const FrameForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    // validateInput(framePayload) will address this error handling logic later
+    validateInput(framePayload)
     if (Object.keys(errors).length === 0) {
       addFrame(framePayload, id)
       .then(response => {
@@ -37,13 +38,35 @@ const FrameForm = () => {
     }
   }
 
+  const clear = (event) => {
+    event.preventDefault()
+    setFramePayload(clearForm(framePayload))
+    setErrors({})
+  }
+
+  const validateInput = (payload) => {
+    setErrors({})
+    const {aperature, shutterSpeed, frameNumber, notes} = payload
+    let newErrors = {};
+    if (aperature.trim() === "") {
+      newErrors = {
+        ...newErrors,
+        aperature: "is required"
+      }
+    }
+
+    if (shutterSpeed.trim() === "") {
+      newErrors = {
+        ...newErrors,
+        shutterSpeed: "is required"
+      }
+    }
+    setErrors(newErrors)
+  }
+
  if (shouldRedirect) {
    return <Redirect to={`/rolls/${id}`} />;
  }
-  // const validateInput = (payload) => {
-  //   setErrors({})
-  //   const {aperature, shutterSpeed, frameNumber, notes}
-  // }
 
   return (
     <div>
@@ -56,7 +79,7 @@ const FrameForm = () => {
                 id="aperature"
                 type="integer"
                 onChange={handleInputChange}
-                value={setFramePayload.aperature}
+                value={framePayload.aperature}
               />
               <FormError error={errors.aperature} />
             </label>
@@ -68,7 +91,7 @@ const FrameForm = () => {
                 id="shutterSpeed"
                 type="integer"
                 onChange={handleInputChange}
-                value={setFramePayload.shutterSpeed}
+                value={framePayload.shutterSpeed}
               />
               <FormError error={errors.shutterSpeed} />
             </label>
@@ -80,9 +103,8 @@ const FrameForm = () => {
                 id="frameNumber"
                 type="integer"
                 onChange={handleInputChange}
-                value={setFramePayload.frameNumber}
+                value={framePayload.frameNumber}
               />
-              <FormError error={errors.frameNumber} />
             </label>
           </div>
           <div>
@@ -92,11 +114,11 @@ const FrameForm = () => {
                 id="notes"
                 rows="10"
                 onChange={handleInputChange}
-                value={setFramePayload.notes}
+                value={framePayload.notes}
               />
-              <FormError error={errors.notes} />
             </label>
           </div>
+          <button onClick={clear} className="button">clear</button>
           <input type="submit" value="submit" className="button" />
         </form>
       </div>

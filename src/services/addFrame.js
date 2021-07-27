@@ -8,6 +8,7 @@ const addFrame = async (framePayload, id) => {
       body: JSON.stringify(framePayload)
       
     })
+    debugger
 
     if (!response.ok) {
       if (response.status === 422) {
