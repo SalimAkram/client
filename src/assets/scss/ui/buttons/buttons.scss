@@ -1,0 +1,50 @@
+@import "abstracts/variables";
+
+.button {
+  outline: none;
+  border: none;
+  padding: 1rem;
+  margin: .5rem;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  color: $page-font;
+  background: $buttons;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &.profile {
+    color: white;
+    background: $user-brown;
+
+    &:hover {
+      background-color: $dark-gray;
+      padding: 1rem;
+      border-radius: 1rem;
+    }
+  }
+  
+  &.close-modal {
+    background: none;
+    
+    &:hover {
+      background-color: $buttons;
+      border-radius: .5rem;
+    }
+  }
+
+
+  &:hover {
+    background-color: $dolphin-orange;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  &:visited {
+    // background: $user-brown;
+  }
+
+  &:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+  }
+}

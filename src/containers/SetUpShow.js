@@ -42,15 +42,15 @@ const SetUpShow = (props) => {
   console.log(setUp)
 
   return(
-    <div>
-      <Link className="button" to={`/setups/${id}/edit`} >edit setup</Link>
+    <div className="setup">
       <li>{setUp.cameraBrand} {setUp.cameraModel}</li>
       <li>{setUp.focalLength}</li>
       <li> {setUp.lenseType} {setUp.lenseModel}</li>
       <li>{setUp.lenseAperature} {setUp.lenseBrand}</li><br/>
       <p>notes</p>
       <li>{setUp.notes}</li>
-      <li><button className="button" onClick={()=> deleteHandleClick(id)}>delete this setup</button></li>
+      <button className="button" onClick={()=> deleteHandleClick(id)}>delete this setup</button>
+      <Link className="button" to={`/setups/${id}/edit`}>edit setup</Link>
     </div>
   );
 }; 

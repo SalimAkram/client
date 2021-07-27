@@ -1,5 +1,7 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
+@import url("https://fonts.googleapis.com/css?family=Dosis|Titillium+Web");
+@import "abstracts/variables";
 @include foundation-everything;
 // place global css here
 *,
@@ -13,6 +15,36 @@
   tab-size: 4;
 }
 
-li {
-  list-style: none;
+body {
+  background-color: #f0efeb;
+  text-align: center;
+  font-family: 'Dosis', Sans-Serif;
+  font-size: 4.3rem;
+  font-family: 'Titillium Web', Sans-Serif;
+  font-size: 1.6rem;
+  
+  h2 {
+    font-family: 'Dosis', Sans-Serif;
+    font-family: 'Titillium Web', Sans-Serif; 
+    
+  }
+
+  li {  
+    list-style: none; 
+  }
+}
+
+.frame {
+  border: 2px solid black 
+}
+
+.setup {
+  border: 2px solid black 
+}
+
+.map {
+  border: 2px solid black;
+  height: 600px;
+  width: auto;
+  text-align: center;
 }

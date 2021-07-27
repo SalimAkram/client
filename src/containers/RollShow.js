@@ -3,6 +3,7 @@ import { useParams, Link, Redirect } from "react-router-dom"
 
 import Frames from "../components/frames/Frames"
 import Locations from "../components/locations/Locations"
+import Map from "../components/map/Map"
 
 import getRoll from "../services/getRoll"
 import deleteframe from "../services/deleteFrame"
@@ -37,6 +38,10 @@ const RollShow = () => {
       setError(error)
     }) 
   };
+
+  const editFrameHandleClick = (rollId, frameId) => {
+    
+  }
   
   if (shouldRedirect) {
     return <Redirect to="/profile" />
@@ -47,23 +52,24 @@ const RollShow = () => {
   return (
     <div>
       <div>
-        <h5>{roll.rollName}</h5>
+        <h2>{roll.rollName} <Link className="button" to={`/rolls/${id}/edit`}>edit roll</Link></h2>
         <li>{roll.cameraSetup}</li>
         <li>{roll.cameraIso}</li>
         <li>{roll.film}</li>
-        <h3><Link className="button" to={`/rolls/${id}/edit`} >edit roll</Link></h3>
       </div>
       <div>
-        <h5>
-          Frames <Link className="button" to={`/rolls/${id}/frames/new`}>add a new frame</Link>
-        </h5>
-        <Frames frames={roll.frames} rollId={id} deleteFrame={deleteFrameHandleClick} /><br/>
+        Frames <br/> 
+        <Link className="button" to={`/rolls/${id}/frames/new`}> add a new frame</Link> **
       </div>
       <div>
-        <h5>
-          Locations
-        </h5>
+        <Frames frames={roll.frames} rollId={id} deleteFrame={deleteFrameHandleClick} />
+      </div>
+      <div>
+        Locations   
+      </div>
+      <div>
         <Locations locations={roll.locations}/>
+        <Map />
       </div>
     </div>
   );
