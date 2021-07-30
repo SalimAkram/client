@@ -57,7 +57,6 @@ const EditRollForm = () => {
     if (Object.keys(errors).length === 0) {
       editRoll(roll)
       .then(response => {
-        console.log('handle submit', response)
         if (response.ok) {
           setShouldRedirect(true)
         }

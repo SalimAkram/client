@@ -13,6 +13,8 @@ const RollShow = () => {
   const [roll, setRoll] = useState({})
   const [error, setError] = useState({})
   const [shouldRedirect, setShouldRedirect] = useState(false)
+  const [rollId, setRollId] = useState({})
+  const [frameId, setFrameId] = useState({})
   const { id } = useParams()
 
   useEffect(() => {
@@ -40,10 +42,16 @@ const RollShow = () => {
   };
 
   const editFrameHandleClick = (rollId, frameId) => {
-    
+    setRollId(rollId)
+    setFrameId(frameId)
+    setShouldRedirect(true)
   }
   
   if (shouldRedirect) {
+    if (rollId & frameId) {
+      const path = `/rolls/${rollId}/frames/${frameId}/edit`
+      return <Redirect to={path} />
+    }
     return <Redirect to="/profile" />
   }
 
@@ -59,10 +67,15 @@ const RollShow = () => {
       </div>
       <div>
         Frames <br/> 
-        <Link className="button" to={`/rolls/${id}/frames/new`}> add a new frame</Link> **
+        <Link className="button" to={`/rolls/${id}/frames/new`}>add a new frame</Link> **
       </div>
       <div>
-        <Frames frames={roll.frames} rollId={id} deleteFrame={deleteFrameHandleClick} />
+        <Frames 
+          frames={roll.frames} 
+          rollId={id} 
+          deleteFrame={deleteFrameHandleClick} 
+          editFrame={editFrameHandleClick}
+        />
       </div>
       <div>
         Locations   
