@@ -45,9 +45,9 @@ const RollForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    validateInput(rollPayLoad)
+    validateInput(rollPayload)
     if(Object.keys(errors).length === 0) {
-      addRoll(rollPayLoad)
+      addRoll(rollPayload)
       .then(response => {
         if(response.ok) {
           response.json()
