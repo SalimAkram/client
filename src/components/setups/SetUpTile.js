@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 const SetUpTile = (props) => {
   return(
-    <div>
+    <div className="setup__tile">
       <Link to={`/setups/${props.id}`}>
         {props.cameraBrand}  {props.cameraModel}
       </Link>

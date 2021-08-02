@@ -82,8 +82,8 @@ const EditFrameForm = () => {
   }
 
   return (
-    <div>
-      <div>
+    <div className="form">
+      <div className="form __frame">
         <form onSubmit={handleSubmit}>
           <div>
             <label>

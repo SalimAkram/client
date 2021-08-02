@@ -24,7 +24,7 @@ const SetUps = (props) => {
   }))
 
   return(
-    <div>
+    <div className="setup__container">
       {setUpsTilesArray}
     </div>
   )

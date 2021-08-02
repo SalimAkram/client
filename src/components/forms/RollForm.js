@@ -108,8 +108,8 @@ const RollForm = () => {
   }
 
   return (
-    <div>
-      <div>
+    <div className="form">
+      <div className="form __roll">
         <form onSubmit={handleSubmit}>
           <div>
             <label>Name

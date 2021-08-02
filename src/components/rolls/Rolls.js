@@ -16,7 +16,7 @@ const Rolls = (props) => {
   }))
 
   return (
-    <div>
+    <div className="roll__container">
       {rollTilesArray}
     </div>
   )

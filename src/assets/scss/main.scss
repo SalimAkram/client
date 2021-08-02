@@ -22,6 +22,8 @@ body {
   font-size: 4.3rem;
   font-family: 'Titillium Web', Sans-Serif;
   font-size: 1.6rem;
+  margin: 0;
+  padding: 0;
   
   h2 {
     font-family: 'Dosis', Sans-Serif;
@@ -34,17 +36,188 @@ body {
   }
 }
 
-.frame {
-  border: 2px solid black 
+.user__profile {
+  border: 1px solid red;
+  border-radius: .5em;
+  padding: 10px 10px;
+  background-color: rgb(139, 161, 161);
+  width: 100vw;
+  height: 100vh;
+
+  &__container {
+    border: 1px solid red;
+    border-radius: .5em;
+    padding: 10px 10px;
+    background-color: aqua;
+    margin: auto;
+    width: 600px;
+    height: 600px;
+     
+      .setup__container {
+      border: 1px solid red;
+      border-radius: .5em;
+      background-color: bisque;
+      padding: 10px 10px;
+      margin: 10px 10px;
+    }
+    .roll__container {
+      border: 1px solid red;
+      border-radius: .5em;
+      background-color: bisque;
+      padding: 10px 10px;
+      margin: 10px 10px;
+    }
+  }
 }
 
-.setup {
-  border: 2px solid black 
+.roll__show {
+  border: 1px solid red;
+  border-radius: .5em;
+  padding: 10px 10px;
+  background-color: rgb(139, 161, 161);
+  width: 100vw;
+  height: auto;
+  
+  &__container {
+    border: 1px solid red;
+    border-radius: .5em;
+    padding: 10px 10px;
+    background-color: aqua;
+    margin: auto;
+    width: auto;
+    height: auto;
+    
+    &__title {
+      border: 1px solid red;
+      border-radius: .5em;
+      background-color: bisque;
+      padding: 10px 10px;
+      margin: 10px 10px;
+    }
+
+    &__frames {
+      border: 1px solid red;
+      border-radius: .5em;
+      background-color: bisque;
+      padding: 10px 10px;
+      margin: 10px 10px;
+    }
+
+    &__frames__title {
+      border: 1px solid red;
+      border-radius: .5em;
+      background-color: orange;
+      padding: 10px 10px;
+      margin: 10px 10px;
+    }
+
+    &__frames__tile {
+      border: 1px solid red;
+      border-radius: .5em;
+      background-color: green;
+      padding: 10px 10px;
+      margin: 10px 10px;
+    }
+
+    &__location__title {
+      border: 1px solid red;
+      border-radius: .5em;
+      background-color: bisque;
+      padding: 10px 10px;
+      margin: 10px 10px;
+    }
+
+    &__map__container {
+      border: 2px solid red;
+      border-radius: .5em;
+      background-color: hotpink;
+      padding: 10px 10px;
+      margin: 10px 10px;
+      width: auto;
+      height: auto;
+    }
+    &__map {
+      border: 2px solid red;
+      border-radius: .5em;
+      background-color: white;
+      padding: 10px 10px;
+      margin: 10px 10px;
+      width: auto;
+      height: 600px;
+    }
+  }
 }
 
-.map {
-  border: 2px solid black;
-  height: 600px;
-  width: auto;
-  text-align: center;
+.setup__show {
+  border: 1px solid red;
+  border-radius: .5em;
+  padding: 10px 10px;
+  background-color: rgb(139, 161, 161);
+  width: 100vw;
+  height: 100vh;
+
+  &__container {
+  border: 1px solid red;
+  border-radius: .5em;
+  padding: 10px 10px;
+  background-color: aqua;
+  margin: auto;
+  width: 600px;
+  height: auto;
+    
+    &__description {
+      border: 1px solid red;
+      border-radius: .5em;
+      background-color: bisque;
+      padding: 10px 10px;
+      margin: 10px 10px;
+    }
+
+    &__notes {
+      border: 1px solid red;
+      border-radius: .5em;
+      background-color: bisque;
+      padding: 10px 10px;
+      margin: 10px 10px;
+    }
+  }
+}
+
+.form {
+  border: 1px solid red;
+  border-radius: .5em;
+  padding: 10px 10px;
+  background-color: rgb(139, 161, 161);
+  width: 100vw;
+  height: auto;
+
+  &.__setup {
+    border: 1px solid red;
+    border-radius: .5em;
+    padding: 10px 10px;
+    background-color: aqua;
+    margin: auto;
+    width: 900px;
+    height: auto;
+  }
+
+  &.__roll {
+    border: 1px solid red;
+    border-radius: .5em;
+    padding: 10px 10px;
+    background-color: aqua;
+    margin: auto;
+    width: 900px;
+    height: auto;
+  }
+
+  &.__frame {
+    border: 1px solid red;
+    border-radius: .5em;
+    padding: 10px 10px;
+    background-color: aqua;
+    margin: auto;
+    width: 900px;
+    height: 500px;
+  }
 }

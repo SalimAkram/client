@@ -82,8 +82,8 @@ const EditSetUpForm = (props) => {
   }
 
   return (
-    <div>
-      <div>
+    <div className="form">
+      <div className="form __setup">
         <form onSubmit={handleSubmit}>
           <div>
             <label>

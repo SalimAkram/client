@@ -6,7 +6,7 @@ import deleteSetUp from "../services/deleteSetUp";
 
 const SetUpShow = (props) => {
   console.log('rendering setup show page....')
-  console.log(props)
+  console.log('props', props)
   const [setUp, setSetUp] = useState({})
   const [error, setError] = useState({});
   const [shouldRedirect, setShouldRedirect] = useState(false)
@@ -39,18 +39,28 @@ const SetUpShow = (props) => {
   if (shouldRedirect) {
     return <Redirect to="/profile" />;
   }
-  console.log(setUp)
+  console.log('setup', setUp)
 
   return(
-    <div className="setup">
-      <li>{setUp.cameraBrand} {setUp.cameraModel}</li>
-      <li>{setUp.focalLength}</li>
-      <li> {setUp.lenseType} {setUp.lenseModel}</li>
-      <li>{setUp.lenseAperature} {setUp.lenseBrand}</li><br/>
-      <p>notes</p>
-      <li>{setUp.notes}</li>
-      <button className="button" onClick={()=> deleteHandleClick(id)}>delete this setup</button>
-      <Link className="button" to={`/setups/${id}/edit`}>edit setup</Link>
+    <div className="setup__show">
+      <div className="setup__show__container">
+        <div className="setup__show__container__description">
+          <ol>
+            <li>{setUp.cameraBrand} {setUp.cameraModel}</li>
+            <li>{setUp.focalLength}</li>
+            <li> {setUp.lenseType} {setUp.lenseModel}</li>
+            <li>{setUp.lenseAperature} {setUp.lenseBrand}</li>
+          </ol>
+        </div>
+        <h5>notes</h5>
+        <div className="setup__show__container__notes">
+          <p>
+            {setUp.notes}
+          </p>
+        </div>
+        <button className="button" onClick={()=> deleteHandleClick(id)}>delete this setup</button>
+        <Link className="button" to={`/setups/${id}/edit`}>edit setup</Link>
+      </div>
     </div>
   );
 }; 

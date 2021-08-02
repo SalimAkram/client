@@ -18,7 +18,7 @@ const UserProfileContainer = () => {
   }, [])
 
   return(
-    <div>
+    <div className="user__profile">
       <UserProfile user={user} rolls={user.rolls} setups={user.setups} />
     </div>
   )
