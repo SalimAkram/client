@@ -36,6 +36,11 @@ body {
   }
 }
 
+#mapid { 
+  width: auto;
+  height: 400px; 
+}
+
 .user__profile {
   border: 1px solid red;
   border-radius: .5em;
@@ -139,11 +144,11 @@ body {
     &__map {
       border: 2px solid red;
       border-radius: .5em;
-      background-color: white;
+      background-color: yellow;
       padding: 10px 10px;
       margin: 10px 10px;
       width: auto;
-      height: 600px;
+      height: 450px;
     }
   }
 }

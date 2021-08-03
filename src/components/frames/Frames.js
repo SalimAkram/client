@@ -8,7 +8,6 @@ const Frames = (props) => {
   let framesArray;
   if(props.frames) {
     framesArray = props.frames.map((frame => {
-
       return (
         <div className="frame" key={frame.id}>
           <FrameTile
